@@ -1,0 +1,5 @@
+cache_dir: null
+lang: en
+last_model: Qwen2.5-3B
+path_dict:
+  Qwen2.5-3B: /home/share/models/Qwen2.5-3B

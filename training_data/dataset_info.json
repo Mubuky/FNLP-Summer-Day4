@@ -1,0 +1,9 @@
+{
+  "training_data_livebench_code": {
+    "file_name": "training_data_full_128_alpaca.json",
+    "columns": {
+        "prompt": "instruction",
+        "response": "output"
+    }
+  }
+}

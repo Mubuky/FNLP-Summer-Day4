@@ -1,0 +1,355 @@
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file vocab.json
+
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file merges.txt
+
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file tokenizer.json
+
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file added_tokens.json
+
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file special_tokens_map.json
+
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file tokenizer_config.json
+
+[INFO|2025-07-18 01:19:46] tokenization_utils_base.py:2021 >> loading file chat_template.jinja
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2299 >> Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+[INFO|2025-07-18 01:19:47] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:19:47] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file vocab.json
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file merges.txt
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file tokenizer.json
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file added_tokens.json
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file special_tokens_map.json
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file tokenizer_config.json
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2021 >> loading file chat_template.jinja
+
+[INFO|2025-07-18 01:19:47] tokenization_utils_base.py:2299 >> Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+[INFO|2025-07-18 01:19:47] logging.py:143 >> Loading dataset training_data_full_128_alpaca.json...
+
+[INFO|2025-07-18 01:20:32] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:20:32] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[INFO|2025-07-18 01:20:32] logging.py:143 >> Quantizing model to 4 bit with bitsandbytes.
+
+[INFO|2025-07-18 01:20:32] logging.py:143 >> KV cache is disabled during training.
+
+[INFO|2025-07-18 01:21:40] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:21:40] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[INFO|2025-07-18 01:22:01] configuration_utils.py:698 >> loading configuration file config.json from cache at /home/mzli/.cache/huggingface/hub/models--unslothai--other/snapshots/43d9e0f2f19a5d7836895f648dc0e762816acf77/config.json
+
+[INFO|2025-07-18 01:22:11] configuration_utils.py:698 >> loading configuration file config.json from cache at /home/mzli/.cache/huggingface/hub/models--unslothai--repeat/snapshots/7c48478c02f84ed89f149b0815cc0216ee831fb0/config.json
+
+[INFO|2025-07-18 01:22:31] configuration_utils.py:698 >> loading configuration file config.json from cache at /home/mzli/.cache/huggingface/hub/models--unslothai--vram-80/snapshots/830433cec98f0aa155f72baba38dc9fe6831d3f3/config.json
+
+[INFO|2025-07-18 01:22:51] configuration_utils.py:698 >> loading configuration file config.json from cache at /home/mzli/.cache/huggingface/hub/models--unslothai--1/snapshots/7ec782b7604cd9ea0781c23a4270f031650f5617/config.json
+
+[INFO|2025-07-18 01:22:51] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:22:51] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[INFO|2025-07-18 01:22:51] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:22:51] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[INFO|2025-07-18 01:22:52] modeling_utils.py:1148 >> loading weights file /home/share/models/Qwen2.5-3B/model.safetensors.index.json
+
+[INFO|2025-07-18 01:22:52] modeling_utils.py:2241 >> Instantiating Qwen2ForCausalLM model under default dtype torch.bfloat16.
+
+[INFO|2025-07-18 01:22:52] configuration_utils.py:1135 >> Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "eos_token_id": 151643
+}
+
+
+[INFO|2025-07-18 01:23:13] modeling_utils.py:5131 >> All model checkpoint weights were used when initializing Qwen2ForCausalLM.
+
+
+[INFO|2025-07-18 01:23:13] modeling_utils.py:5139 >> All the weights of Qwen2ForCausalLM were initialized from the model checkpoint at /home/share/models/Qwen2.5-3B.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use Qwen2ForCausalLM for predictions without further training.
+
+[INFO|2025-07-18 01:23:13] configuration_utils.py:1088 >> loading configuration file /home/share/models/Qwen2.5-3B/generation_config.json
+
+[INFO|2025-07-18 01:23:13] configuration_utils.py:1135 >> Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "max_new_tokens": 2048
+}
+
+
+[INFO|2025-07-18 01:23:15] logging.py:143 >> Gradient checkpointing enabled.
+
+[INFO|2025-07-18 01:23:15] logging.py:143 >> Upcasting trainable params to float32.
+
+[INFO|2025-07-18 01:23:15] logging.py:143 >> Fine-tuning method: LoRA
+
+[INFO|2025-07-18 01:23:15] logging.py:143 >> Found linear modules: v_proj,down_proj,o_proj,k_proj,q_proj,up_proj,gate_proj
+
+[WARNING|2025-07-18 01:23:17] logging.py:328 >> Unsloth 2025.7.4 patched 36 layers with 36 QKV layers, 36 O layers and 36 MLP layers.
+
+[INFO|2025-07-18 01:23:19] logging.py:143 >> trainable params: 14,966,784 || all params: 3,100,905,472 || trainable%: 0.4827
+
+[INFO|2025-07-18 01:23:19] trainer.py:756 >> Using auto half precision backend
+
+[WARNING|2025-07-18 01:23:20] <string>:173 >> ==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 128 | Num Epochs = 5 | Total steps = 40
+O^O/ \_/ \    Batch size per device = 8 | Gradient accumulation steps = 2
+\        /    Data Parallel GPUs = 1 | Total batch size (8 x 2 x 1) = 16
+ "-____-"     Trainable parameters = 14,966,784 of 3,100,905,472 (0.48% trained)
+
+[INFO|2025-07-18 01:24:14] logging.py:143 >> {'loss': 1.0389, 'learning_rate': 4.8776e-05, 'epoch': 0.62, 'throughput': 1575.44}
+
+[INFO|2025-07-18 01:24:23] logging.py:143 >> {'loss': 1.0609, 'learning_rate': 4.4010e-05, 'epoch': 1.25, 'throughput': 2389.84}
+
+[INFO|2025-07-18 01:24:33] logging.py:143 >> {'loss': 0.8968, 'learning_rate': 3.6350e-05, 'epoch': 1.88, 'throughput': 3037.48}
+
+[INFO|2025-07-18 01:24:44] logging.py:143 >> {'loss': 0.7906, 'learning_rate': 2.6961e-05, 'epoch': 2.50, 'throughput': 3517.30}
+
+[INFO|2025-07-18 01:24:54] logging.py:143 >> {'loss': 0.7415, 'learning_rate': 1.7275e-05, 'epoch': 3.12, 'throughput': 3901.52}
+
+[INFO|2025-07-18 01:25:05] logging.py:143 >> {'loss': 0.6628, 'learning_rate': 8.7638e-06, 'epoch': 3.75, 'throughput': 4238.50}
+
+[INFO|2025-07-18 01:25:16] logging.py:143 >> {'loss': 0.6681, 'learning_rate': 2.7248e-06, 'epoch': 4.38, 'throughput': 4450.80}
+
+[INFO|2025-07-18 01:25:27] logging.py:143 >> {'loss': 0.6325, 'learning_rate': 7.7067e-08, 'epoch': 5.00, 'throughput': 4665.56}
+
+[INFO|2025-07-18 01:25:27] trainer.py:3993 >> Saving model checkpoint to saves/Qwen2.5-3B/lora/train_2025-07-18-01-18-07/checkpoint-40
+
+[INFO|2025-07-18 01:25:27] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:25:27] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[INFO|2025-07-18 01:25:28] <string>:438 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+
+[INFO|2025-07-18 01:25:28] trainer.py:3993 >> Saving model checkpoint to saves/Qwen2.5-3B/lora/train_2025-07-18-01-18-07
+
+[INFO|2025-07-18 01:25:28] configuration_utils.py:696 >> loading configuration file /home/share/models/Qwen2.5-3B/config.json
+
+[INFO|2025-07-18 01:25:28] configuration_utils.py:770 >> Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "eos_token_id": 151643,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 32768,
+  "max_window_layers": 36,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": 32768,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.52.4",
+  "use_cache": true,
+  "use_mrope": false,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+
+[WARNING|2025-07-18 01:25:29] logging.py:148 >> No metric eval_loss to plot.
+
+[WARNING|2025-07-18 01:25:29] logging.py:148 >> No metric eval_accuracy to plot.
+
+[INFO|2025-07-18 01:25:29] modelcard.py:450 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Causal Language Modeling', 'type': 'text-generation'}}
+
