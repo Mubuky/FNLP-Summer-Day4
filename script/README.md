@@ -18,6 +18,13 @@
 - **输出文件**: `outputs/training_data/training_data_full_128.json`
 - **适用场景**: 正式训练数据生成
 
+### 3. `run_train.sh` - 模型训练脚本
+- **用途**: 基于生成数据训练Qwen3-8B模型
+- **训练目标**: 特殊Token强化训练 (`<|AGENT|>`, `<|EDIT|>`)
+- **输出模型**: `outputs/model/qwen3-8b-special-tokens/`
+- **训练日志**: `training_log/training_TIMESTAMP.log`
+- **适用场景**: 模型微调和特殊token强化
+
 ## 使用方法
 
 ### 准备工作
@@ -39,6 +46,11 @@ cd /home/mzli/day-3
 ### 运行全量生成
 ```bash
 ./script/run_full.sh
+```
+
+### 运行模型训练
+```bash
+./script/run_train.sh
 ```
 
 ## 输出文件
