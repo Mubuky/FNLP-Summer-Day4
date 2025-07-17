@@ -156,6 +156,12 @@ training_data_full_*.json
 generated_data/
 output_data/
 
+# Output directories
+outputs/training_data/
+outputs/reports/
+outputs/validation/
+# Keep outputs/tasks/ structure for tracking
+
 # Logs and outputs
 *.log
 logs/

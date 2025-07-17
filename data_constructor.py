@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-data_constructor.py - 使用GPT-4o构造符合特殊token格式的训练数据 (基于parquet数据)
+data_constructor.py - 使用GPT-4.1构造符合特殊token格式的训练数据 (基于parquet数据)
 
 新的构造流程：
 1. 从parquet文件读取编程问题
-2. 使用GPT-4o生成有小错误的代码
+2. 使用GPT-4.1生成有小错误的代码
 3. 根据需求(Agent/Edit)包装成instruction
-4. 使用GPT-4o生成包含特殊token的output
+4. 使用GPT-4.1生成包含特殊token的output
 """
 
 import os
@@ -32,7 +32,10 @@ def get_openai_client():
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             raise ValueError("请设置 OPENAI_API_KEY 环境变量")
-        client = OpenAI(api_key=api_key)
+        client = OpenAI(
+            api_key=api_key,
+            base_url="https://api.chatanywhere.tech/v1"
+        )
     return client
 
 # 数据文件路径
@@ -140,7 +143,7 @@ def extract_problem_description(problem_text: str) -> str:
     return description
 
 def generate_buggy_code(problem_desc: str, max_retries: int = 3) -> Optional[str]:
-    """使用GPT-4o生成包含小错误的代码"""
+    """使用GPT-4.1生成包含小错误的代码"""
     prompt = f"""请根据以下编程问题，生成一个包含小错误的Python代码实现。
 
 问题描述：
@@ -162,7 +165,7 @@ def generate_buggy_code(problem_desc: str, max_retries: int = 3) -> Optional[str
         try:
             client = get_openai_client()
             response = client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-4.1",
                 messages=[
                     {"role": "user", "content": prompt}
                 ],
@@ -231,7 +234,7 @@ def create_instruction(problem_desc: str, buggy_code: str, instruction_type: str
     return random.choice(templates)
 
 def generate_output_with_special_tokens(instruction: str, instruction_type: str, max_retries: int = 3) -> Optional[str]:
-    """使用GPT-4o生成包含特殊token的输出"""
+    """使用GPT-4.1生成包含特殊token的输出"""
     
     system_prompt = """你是一个专业的代码调试助手。请根据用户的问题类型选择合适的处理模式：
 
@@ -258,7 +261,7 @@ def generate_output_with_special_tokens(instruction: str, instruction_type: str,
         try:
             client = get_openai_client()
             response = client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-4.1",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": instruction}
@@ -352,8 +355,8 @@ def process_single_problem(problem: Dict, item_id: int) -> Optional[Dict]:
 
 def construct_training_data_from_parquet(
     num_samples: int = 100, 
-    num_threads: int = 5, 
-    output_file: str = "training_data_from_parquet.json"
+    num_threads: int = 32, 
+    output_file: str = "outputs/training_data/training_data_from_parquet.json"
 ) -> List[Dict]:
     """从parquet数据构造训练数据"""
     
@@ -417,14 +420,21 @@ def construct_training_data_from_parquet(
     valid_data = [item for item in results if item["valid"]]
     alpaca_data = convert_to_alpaca_format(valid_data)
     
+    # 确保目录存在
+    import os
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    
     alpaca_file = output_file.replace('.json', '_alpaca.json')
     with open(alpaca_file, 'w', encoding='utf-8') as f:
         json.dump(alpaca_data, f, ensure_ascii=False, indent=2)
     
     print(f"📦 Alpaca格式数据已保存到: {alpaca_file}")
     
-    # 生成分析报告
-    generate_analysis_report(results, output_file.replace('.json', '_analysis.txt'))
+    # 生成分析报告（保存到reports目录）
+    base_name = os.path.basename(output_file).replace('.json', '_analysis.txt')
+    report_file = f"outputs/reports/{base_name}"
+    os.makedirs("outputs/reports", exist_ok=True)
+    generate_analysis_report(results, report_file)
     
     return results
 
@@ -503,9 +513,9 @@ def main():
     
     parser = argparse.ArgumentParser(description='从parquet数据构造符合特殊token格式的训练数据')
     parser.add_argument('--samples', type=int, default=100, help='生成样本数量 (默认: 100)')
-    parser.add_argument('--threads', type=int, default=5, help='线程数量 (默认: 5)')
-    parser.add_argument('--output', type=str, default='training_data_from_parquet.json', 
-                       help='输出文件名 (默认: training_data_from_parquet.json)')
+    parser.add_argument('--threads', type=int, default=32, help='线程数量 (默认: 32)')
+    parser.add_argument('--output', type=str, default='outputs/training_data/training_data_from_parquet.json', 
+                       help='输出文件名 (默认: outputs/training_data/training_data_from_parquet.json)')
     
     args = parser.parse_args()
     

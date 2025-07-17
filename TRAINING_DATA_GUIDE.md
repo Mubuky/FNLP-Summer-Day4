@@ -6,13 +6,13 @@
 
 - **真实编程问题**: 基于`data/test-00000-of-00001.parquet`中的128个真实编程问题
 - **三阶段生成**: 问题解析 → 错误代码生成 → instruction包装 → 特殊token输出
-- **智能错误注入**: 使用GPT-4o生成包含各种类型bug的代码
+- **智能错误注入**: 使用GPT-4.1生成包含各种类型bug的代码
 - **自适应instruction**: 根据Agent/Edit模式智能包装问题
 
 ## 工具概述
 
 ### 1. `data_constructor.py` - 数据构造工具（重构版）
-- **功能**: 基于parquet数据使用GPT-4o多线程生成训练数据
+- **功能**: 基于parquet数据使用GPT-4.1多线程生成训练数据
 - **输入**: `data/test-00000-of-00001.parquet`（128个真实编程问题）
 - **输出**: 原始数据 + Alpaca格式数据 + 分析报告
 - **新特性**: 三阶段智能生成流程
@@ -38,6 +38,8 @@ pip install pathlib
 
 ### 2. 设置OpenAI API Key
 
+本项目使用ChatAnywhere作为OpenAI API的代理服务，提供更稳定的访问：
+
 ```bash
 # Linux/Mac
 export OPENAI_API_KEY="your-api-key-here"
@@ -45,6 +47,8 @@ export OPENAI_API_KEY="your-api-key-here"
 # Windows
 set OPENAI_API_KEY=your-api-key-here
 ```
+
+**注意**: 项目已配置使用 `api.chatanywhere.tech` 作为API端点，无需额外配置base_url。
 
 ## 新版本工作流程
 
@@ -56,7 +60,7 @@ set OPENAI_API_KEY=your-api-key-here
    - 循环使用问题支持大规模数据生成
 
 2. **阶段2: 错误代码生成**
-   - 使用GPT-4o根据问题描述生成有小错误的Python代码
+   - 使用GPT-4.1根据问题描述生成有小错误的Python代码
    - 错误类型包括：逻辑错误、边界条件错误、算法实现错误等
    - 确保代码看起来合理但包含1-2个可识别的bug
 
@@ -66,7 +70,7 @@ set OPENAI_API_KEY=your-api-key-here
    - Edit模式：添加具体错误信息，包装为需要直接修复的问题
 
 4. **阶段4: 特殊Token输出生成**
-   - 使用GPT-4o生成包含特殊token的标准格式输出
+   - 使用GPT-4.1生成包含特殊token的标准格式输出
    - 自动验证输出格式的正确性
    - 重试机制确保生成质量
 
@@ -81,12 +85,12 @@ set OPENAI_API_KEY=your-api-key-here
 python data_constructor.py
 
 # 自定义参数
-python data_constructor.py --samples 500 --threads 8 --output my_training_data.json
+python data_constructor.py --samples 500 --threads 32 --output outputs/training_data/my_training_data.json
 
 # 参数说明：
 # --samples: 生成样本数量 (默认100，将循环使用128个parquet问题)
-# --threads: 线程数量 (默认5，建议根据API限制调整)
-# --output: 输出文件名 (默认training_data_from_parquet.json)
+# --threads: 线程数量 (默认32，建议根据API限制调整)
+# --output: 输出文件名 (默认outputs/training_data/training_data_from_parquet.json)
 ```
 
 **新版本输出文件：**
@@ -106,7 +110,7 @@ python batch_validator.py training_data.json
 python batch_validator.py hw3_2.json --format hw3
 
 # 自定义输出路径
-python batch_validator.py data.json --output filtered_data.json --report quality_report.txt
+python batch_validator.py outputs/training_data/data.json --output outputs/validation/filtered_data.json --report outputs/reports/quality_report.txt
 
 # 保留无效数据用于分析
 python batch_validator.py data.json --keep-invalid
@@ -126,10 +130,10 @@ python batch_validator.py data.json --keep-invalid
 python output_checker.py
 
 # 检查指定文件
-python output_checker.py my_file.json
+python output_checker.py outputs/tasks/hw3_2.json
 
 # 显示详细信息
-python output_checker.py my_file.json -v
+python output_checker.py outputs/tasks/hw3_2.json -v
 ```
 
 ## 数据格式说明
@@ -239,21 +243,21 @@ python output_checker.py my_file.json -v
 ### 1. 多线程配置
 ```bash
 # 根据API限制调整线程数
-python data_constructor.py --threads 5   # 保守设置
-python data_constructor.py --threads 20  # 激进设置
+python data_constructor.py --threads 16   # 保守设置  
+python data_constructor.py --threads 32  # 标准设置
 ```
 
 ### 2. 批量处理
 ```bash
 # 分批生成大量数据
-python data_constructor.py --samples 500 --output batch1.json
-python data_constructor.py --samples 500 --output batch2.json
-python data_constructor.py --samples 500 --output batch3.json
+python data_constructor.py --samples 500 --output outputs/training_data/batch1.json
+python data_constructor.py --samples 500 --output outputs/training_data/batch2.json
+python data_constructor.py --samples 500 --output outputs/training_data/batch3.json
 
 # 合并验证
-python batch_validator.py batch1.json
-python batch_validator.py batch2.json
-python batch_validator.py batch3.json
+python batch_validator.py outputs/training_data/batch1.json
+python batch_validator.py outputs/training_data/batch2.json
+python batch_validator.py outputs/training_data/batch3.json
 ```
 
 ### 3. 错误处理
@@ -264,12 +268,12 @@ python batch_validator.py batch3.json
 ## 成本估算
 
 ### OpenAI API成本
-- GPT-4o价格: ~$0.03/1K tokens (输出)
+- GPT-4.1价格: ~$0.03/1K tokens (输出)
 - 每个样本平均: ~500 tokens输出
 - 1000个样本估算: ~$15-20
 
 ### 时间估算
-- 10线程处理1000样本: ~15-30分钟
+- 32线程处理1000样本: ~5-15分钟
 - 实际时间取决于API响应速度和网络状况
 
 ## 故障排除
@@ -286,7 +290,7 @@ python batch_validator.py batch3.json
    ```
    API调用失败: Rate limit exceeded
    ```
-   **解决**: 减少线程数或增加重试间隔
+   **解决**: 适当减少线程数或增加重试间隔（如从32调整为16）
 
 3. **格式验证失败**:
    ```
@@ -314,7 +318,7 @@ python batch_validator.py batch3.json
 
 3. **检查单个文件**:
    ```bash
-   python output_checker.py file.json -v
+   python output_checker.py outputs/tasks/hw3_2.json -v
    ```
 
 ## 最佳实践
@@ -325,16 +329,16 @@ python batch_validator.py batch3.json
    python test_new_constructor.py
    
    # 小规模生成测试
-   python data_constructor.py --samples 20 --threads 2
+   python data_constructor.py --samples 20 --threads 8
    ```
 
 2. **验证质量后扩大规模**:
    ```bash
    # 中等规模测试
-   python data_constructor.py --samples 200 --threads 5
+   python data_constructor.py --samples 200 --threads 32
    
    # 大规模生成（充分利用128个问题）
-   python data_constructor.py --samples 1000 --threads 8
+   python data_constructor.py --samples 1000 --threads 32
    ```
 
 3. **定期检查和过滤数据**:
@@ -344,8 +348,8 @@ python batch_validator.py batch3.json
 
 4. **保存多个版本**:
    ```bash
-   python data_constructor.py --output version1.json
-   python data_constructor.py --output version2.json
+   python data_constructor.py --output outputs/training_data/version1.json
+python data_constructor.py --output outputs/training_data/version2.json
    ```
 
 5. **监控数据质量趋势**:

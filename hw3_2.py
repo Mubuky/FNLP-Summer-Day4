@@ -149,7 +149,9 @@ for i, (query_item, output) in enumerate(zip(queries, outputs)):
     })
     
 # 保存结果到文件
-output_file = 'hw3_2.json'
+import os
+output_file = 'outputs/tasks/hw3_2.json'
+os.makedirs(os.path.dirname(output_file), exist_ok=True)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
 

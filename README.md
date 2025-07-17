@@ -1,19 +1,28 @@
 # Qwen3-8B 特殊Token集成项目
 
-本项目实现了为 Qwen3-8B 模型添加特殊Token，并通过System Prompt设计使模型生成包含这些特殊Token的输出。
+本项目旨在为Qwen3-8B模型集成特殊token，构建训练数据以增强模型的调试和代码编辑能力。
 
 ## 项目概述
 
-本项目包含两个主要任务：
+### 核心功能
+1. **特殊Token集成** (`hw3_1.py`): 为Qwen3-8B添加 `<|AGENT|>` 和 `<|EDIT|>` 特殊token
+2. **系统提示设计** (`hw3_2.py`): 设计适配特殊token的系统提示
+3. **训练数据构造** (`data_constructor.py`): 从真实编程问题生成高质量训练数据
 
-1. **任务一 (hw3_1.py)**: 为 Qwen3-8B 添加特殊Token并进行文本编码
-2. **任务二 (hw3_2.py)**: 设计System Prompt使模型生成包含特殊Token的输出
+### 特殊Token说明
+- **`<|AGENT|>`**: 用于调试分析，当需要探索性调试时触发
+- **`<|EDIT|>`**: 用于直接修复，当有明确错误信息时触发
 
-## 特殊Token说明
+## API配置
 
-项目添加了两个特殊Token：
-- `<|AGENT|>` - 代理模式标识符，用于调试分析场景
-- `<|EDIT|>` - 编辑模式标识符，用于直接修复场景
+本项目使用ChatAnywhere作为OpenAI API的代理服务，提供更稳定的访问：
+
+```bash
+# 设置API Key
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+**注意**: 项目已配置使用 `api.chatanywhere.tech` 作为API端点，无需额外配置base_url。
 
 ## 文件结构
 
@@ -22,16 +31,23 @@
 ├── hw3_2.py                    # 任务二：System Prompt设计和生成
 ├── query_and_output.json       # 输入数据（包含Query和期望Output）
 ├── query_only.json            # 查询数据（仅包含Query）
-├── hw3_1.json                 # 任务一输出结果
-├── hw3_2.json                 # 任务二输出结果
 ├── output_checker.py          # 输出格式检查工具
 ├── tokenizer_with_special_tokens/  # 保存的带特殊Token的Tokenizer
 ├── data_constructor.py        # 训练数据构造工具（重构版）
 ├── batch_validator.py         # 批量数据验证工具
-├── test_example.py           # 原版本工具演示脚本
-├── test_new_constructor.py   # 新版本测试脚本（新增）
-├── TRAINING_DATA_GUIDE.md    # 训练数据构造详细指南（更新）
-├── UPGRADE_NOTES.md          # 版本升级说明（新增）
+├── script/                    # 运行脚本目录
+│   ├── test_small.sh         # 小批量测试脚本
+│   ├── run_full.sh           # 全量生成脚本
+│   └── README.md             # 脚本使用说明
+├── outputs/                   # 输出文件目录
+│   ├── tasks/                # 任务输出
+│   │   ├── hw3_1.json       # 任务一输出结果
+│   │   └── hw3_2.json       # 任务二输出结果
+│   ├── training_data/        # 训练数据输出
+│   ├── reports/              # 分析和质量报告
+│   └── validation/           # 验证相关输出
+├── TRAINING_DATA_GUIDE.md    # 训练数据构造详细指南
+├── UPGRADE_NOTES.md          # 版本升级说明
 └── README.md                  # 项目说明文档
 ```
 
@@ -197,7 +213,7 @@ python output_checker.py [文件路径]
 
 ### 工具概述
 
-1. **`data_constructor.py`** - 使用GPT-4o多线程构造符合格式要求的训练数据
+1. **`data_constructor.py`** - 使用GPT-4.1多线程构造符合格式要求的训练数据
 2. **`batch_validator.py`** - 批量验证数据质量并过滤有效数据
 3. **`test_example.py`** - 工具演示和测试脚本
 
@@ -211,7 +227,7 @@ export OPENAI_API_KEY="your-api-key-here"
 python test_new_constructor.py
 
 # 3. 生成训练数据（基于parquet数据）
-python data_constructor.py --samples 100 --threads 5
+python data_constructor.py --samples 100 --threads 32 --output outputs/training_data/my_data.json
 
 # 4. 验证数据质量
 python batch_validator.py training_data_from_parquet.json

@@ -312,10 +312,16 @@ def main():
     print_summary(results)
     
     # 生成质量报告
+    # 确保输出目录存在
+    import os
+    os.makedirs("outputs/reports", exist_ok=True)
+    os.makedirs("outputs/validation", exist_ok=True)
+    
     if args.report:
         report_file = args.report
     else:
-        report_file = input_file.replace('.json', '_quality_report.txt')
+        base_name = os.path.basename(input_file).replace('.json', '_quality_report.txt')
+        report_file = f"outputs/reports/{base_name}"
     
     report_lines = generate_quality_report(results, report_file)
     print(f"📊 质量报告已保存到: {report_file}")
@@ -327,7 +333,8 @@ def main():
         if args.output:
             alpaca_file = args.output
         else:
-            alpaca_file = input_file.replace('.json', '_valid_alpaca.json')
+            base_name = os.path.basename(input_file).replace('.json', '_valid_alpaca.json')
+            alpaca_file = f"outputs/validation/{base_name}"
         
         with open(alpaca_file, 'w', encoding='utf-8') as f:
             json.dump(alpaca_data, f, ensure_ascii=False, indent=2)
@@ -336,7 +343,8 @@ def main():
     
     # 可选：保存无效数据用于分析
     if args.keep_invalid and results['invalid_items'] > 0:
-        invalid_file = input_file.replace('.json', '_invalid.json')
+        base_name = os.path.basename(input_file).replace('.json', '_invalid.json')
+        invalid_file = f"outputs/validation/{base_name}"
         with open(invalid_file, 'w', encoding='utf-8') as f:
             json.dump(results['invalid_data'], f, ensure_ascii=False, indent=2)
         

@@ -4,7 +4,7 @@ import json, os
 # 模型和文件路径
 MODEL_PATH = "/home/share/models/Qwen3-8B"
 INPUT_JSON = "query_and_output.json"
-OUTPUT_JSON = "hw3_1.json"
+OUTPUT_JSON = "outputs/tasks/hw3_1.json"
 TOKENIZER_SAVE_PATH = "./tokenizer_with_special_tokens"  # 保存tokenizer的本地路径
 
 # 1. 加载 tokenizer
@@ -48,6 +48,8 @@ for item in tasks:
     })
 
 # 7. 答案写入 JSON
+import os
+os.makedirs(os.path.dirname(OUTPUT_JSON), exist_ok=True)
 with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
     json.dump(records, f, ensure_ascii=False, indent=2)
 

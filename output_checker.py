@@ -284,8 +284,8 @@ def main():
     parser.add_argument(
         'file_path',
         nargs='?',
-        default='hw3_2.json',
-        help='要检查的JSON文件路径 (默认: hw3_2.json)'
+        default='outputs/tasks/hw3_2.json',
+        help='要检查的JSON文件路径 (默认: outputs/tasks/hw3_2.json)'
     )
     
     parser.add_argument(

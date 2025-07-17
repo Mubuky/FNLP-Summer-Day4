@@ -30,25 +30,25 @@ fi
 # 生成数据
 echo "🤖 开始全量生成数据..."
 echo "   样本数: 128"
-echo "   线程数: 5"
-echo "   输出文件: training_data_full_128.json"
+echo "   线程数: 32"
+echo "   输出文件: outputs/training_data/training_data_full_128.json"
 
 python3 data_constructor.py \
     --samples 128 \
-    --threads 5 \
-    --output training_data_full_128.json
+    --threads 32 \
+    --output outputs/training_data/training_data_full_128.json
 
 # 验证数据
-if [ $? -eq 0 ] && [ -f "training_data_full_128.json" ]; then
+if [ $? -eq 0 ] && [ -f "outputs/training_data/training_data_full_128.json" ]; then
     echo "✅ 数据生成成功！"
     echo "📊 验证数据质量..."
-    python3 batch_validator.py training_data_full_128.json
+    python3 batch_validator.py outputs/training_data/training_data_full_128.json
     
     echo ""
-    echo "📁 生成文件: training_data_full_128.json"
+    echo "📁 生成文件: outputs/training_data/training_data_full_128.json"
     echo "📊 数据统计:"
-    wc -l training_data_full_128.json | awk '{print "   总行数: " $1}'
-    ls -lh training_data_full_128.json | awk '{print "   文件大小: " $5}'
+    wc -l outputs/training_data/training_data_full_128.json | awk '{print "   总行数: " $1}'
+    ls -lh outputs/training_data/training_data_full_128.json | awk '{print "   文件大小: " $5}'
     
     echo ""
     echo "🎯 后续步骤:"
