@@ -151,6 +151,8 @@ dmypy.json
 training_data_from_parquet.*
 training_data.*
 *_training_data.*
+test_small_*.json
+training_data_full_*.json
 generated_data/
 output_data/
 
