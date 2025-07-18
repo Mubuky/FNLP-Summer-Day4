@@ -340,20 +340,6 @@ pip install -r requirements.txt
 python -m pytest tests/
 ```
 
-## 📈 Performance Metrics
-
-### Training Performance
-- **Data Generation**: 5-15 minutes for 128 samples (32 threads, ~0.6 samples/sec)
-- **Token Integration**: <30 seconds for tokenizer enhancement
-- **Validation**: 2-5 minutes for full dataset quality check
-- **Model Training**: 2-4 hours on single GPU (depends on base model size)
-
-### Quality Metrics
-- **Valid Data Rate**: 95-98% (with proper API configuration and validation)
-- **Token Balance**: 45-55% AGENT / 55-45% EDIT distribution (context-dependent)
-- **Format Compliance**: 100% (with comprehensive validation pipeline)
-- **Reasoning Quality**: 90%+ coherent `<think>` sections with logical analysis
-
 
 ## 📄 License
 
